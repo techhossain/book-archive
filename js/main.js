@@ -2,6 +2,8 @@ const loadBooks = () => {
   const searchField = document.getElementById('search-field');
   const searchFieldValue = searchField.value;
 
+  toggleElement(true, 'spinner');
+
   const url = `https://openlibrary.org/search.json?q=${searchFieldValue}`;
 
   fetch(url)
@@ -12,37 +14,39 @@ const loadBooks = () => {
   searchField.value = '';
 }
 
-// Alert Messages
-const toggleAlert = (isVisiable) => {
-  if (isVisiable) {
-    document.getElementById('alert').classList.add('d-block');
-    document.getElementById('alert').classList.remove('d-none');
-  }
-  else {
-    document.getElementById('alert').classList.add('d-none');
-    document.getElementById('alert').classList.remove('d-block');
+const toggleElement = (isNeeded, id) => {
+  const element = document.getElementById(id);
+  if (isNeeded) {
+    element.classList.add('d-block');
+    element.classList.remove('d-none');
+  } else {
+    element.classList.add('d-none');
+    element.classList.remove('d-block');
   }
 }
 
 
 // Search Result display
-
 const displaySearchResult = (results, resultCount) => {
+  const searchContainer = document.getElementById('search-container');
+  const resultCountField = document.getElementById('search-result-count');
+
+  toggleElement(false, 'spinner');
 
   if (!results.length) {
-    toggleAlert(true);
+    toggleElement(true, 'alert');
+    resultCountField.innerHTML = '';
+    searchContainer.innerText = '';
   }
   else {
-    toggleAlert(false);
+    toggleElement(false, 'spinner');
     // Result Count Value set
-    document.getElementById('search-result-count').innerHTML = resultCount + ", Result's Found";
-
-    const searchContainer = document.getElementById('search-container');
-
+    resultCountField.innerHTML = resultCount + ", Result's Found";
     searchContainer.innerText = '';
 
     // Looping to show the books
     results.forEach(book => {
+      console.log(book);
 
       const imgurl = `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`;
 
