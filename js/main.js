@@ -3,6 +3,7 @@ const loadBooks = () => {
   const searchFieldValue = searchField.value;
 
   toggleElement(true, 'spinner');
+  toggleElement(false, 'alert');
 
   const url = `https://openlibrary.org/search.json?q=${searchFieldValue}`;
 
@@ -14,6 +15,7 @@ const loadBooks = () => {
   searchField.value = '';
 }
 
+// Function for both alert and spinner
 const toggleElement = (isNeeded, id) => {
   const element = document.getElementById(id);
   if (isNeeded) {
