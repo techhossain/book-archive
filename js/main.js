@@ -47,8 +47,6 @@ const displaySearchResult = (results, resultCount, searchFieldValue) => {
 
     // Looping to show the books
     results.forEach(book => {
-      console.log(book);
-
       const imgurl = `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`;
 
       const div = document.createElement('div');
